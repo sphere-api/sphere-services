@@ -60,4 +60,24 @@ Additionally, by default, sphere-service will make requests to the development v
 
 ### $sphere
 
-The $sphere object allows you to interact with the Sphere Api services by passing it into your applications functions. This is built to extend the ngResource module ([ngResource](https://docs.angularjs.org/api/ngResource/service/$resource)), and so similar syntax is used.
+The $sphere object allows you to interact with the Sphere Api services by passing it into your applications functions. This is built to extend the ngResource module ([ngResource](https://docs.angularjs.org/api/ngResource/service/$resource)), and so similar syntax is used. For more information on the endpoints available, see Sphere Api documentation at [developers.sphere.com](http://developers.sphere.com/#/docs). The models can be bound directly to your $scope, or you can make use of the built-in success/failure callbacks.
+
+For example, there are three ways you can make a call to the same endpoint;
+```js
+$scope.recommendations = $sphere.recommendations().get({type: 'documents'});
+
+$sphere.recommendations().get({type: 'documents'},
+function (success) {
+  $scope.recommendations = success;
+}, function (failure) {
+  throw failure;
+});
+
+$sphere.recommendations().get({type: 'documents'}).$promise
+.then(function (success) {
+  $scope.recommendations = success;
+})
+.catch(function (failure) {
+  throw failure;
+});
+```
