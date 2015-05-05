@@ -6,72 +6,96 @@
 angular.module('sphere-services', [
   'ngResource'
 ])
-.constant('SphereDefaults', {
-  method: 'GET',
-  url: 'https://sphere-dev.outbrain.com/api/v1/recommendations/:type',
-  headers: {
-    Authorization: 'API_KEY c2e75315550543fdbf0a85e9a96a458e',
-    'X-USER-ID': '9afa6143-4357-4b27-8311-a3d4626259c7'
-  },
-  withCredentials: true
-})
-/* Sphere Recommendations
- * Includes custom actions for Documents, Categories, and Sites
- * Can also hit those endpoints by passing in {type: 'documents'}, etc, as a parameter when making a .get() request
- */
-.factory('SphereRecommendations', function ($resource) {
+.provider('$sphere', function $sphereProvider () {
+  var self = this,
+    setParams;
 
-  var Recommendations = $resource('https://sphere-dev.outbrain.com/api/v1/recommendations/:type', {}, {
-      // Custom actions
-      getDocuments: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/recommendations/documents' },
-      getCategories: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/recommendations/categories' },
-      getSites: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/recommendations/sites' }
+  setParams = function (urlPartial, options) {
+    var params = angular.copy(self.defaults);
+    params.url += urlPartial;
+
+    if (options && angular.isObject(options)) {
+      angular.extend(params, options);
+    } else if (angular.isArray(options)) {
+      angular.forEach(options, function (option) {
+        angular.extend(params.option);
+      });
     }
-  );
 
-  return Recommendations;
-})
-/* Sphere Interests
- * Includes custom actions for Categories, Topics, and Documents
- * Can also hit those endpoints by passing in {type: 'documents'}, etc, as a parameter when making a .get() request
- */
-.factory('SphereInterests', function ($resource) {
-  var Interests = $resource('https://sphere-dev.outbrain.com/api/v1/interests/:type/:id', {}, {
-      // Custom actions
-      getAll: { method: 'GET', isArray: true },
-      get: { method: 'GET', isArray: true },
-      getSites: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/interests/sites' },
-      getCategories: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/interests/categories' },
-      getTopics: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/interests/topics' },
-      getDocuments: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/interests/documents' },
-      getInterest: { method: 'GET' },
-      addInterest: { method: 'POST',
-        transformRequest: function (data) {
-          console.log('Data: ', data);
-        } 
-      },
-      removeInterest: { method: 'DELETE',
-        transformRequest: function (data) {
-          console.log('Data: ', data);
-        } 
+    return params;
+  };
+
+  // Setup defaults for the Sphere Api calls
+  this.defaults = {
+    method: 'GET',
+    url: 'https://sphere-dev.outbrain.com/api/v1/',
+    headers: {
+      Authorization: '',//API_KEY c2e75315550543fdbf0a85e9a96a458e
+      'X-USER-ID': '',//9afa6143-4357-4b27-8311-a3d4626259c7
+    },
+    withCredentials: true
+  };
+
+  this.prodEnabled = function (bool) {
+    if (typeof(bool) === 'boolean') {
+      if (bool) {
+        self.defaults.url = 'https://sphere.outbrain.com/api/v1/'
       }
+    } else {
+      throw 'Error: prodEnabled only accepts boolean values';
     }
-  );
+  };
+  
+  this.$get = function ($resource) {
+    var self = this;
+    
+    var data = {
+      recommendations: function (options) {
+        var recommendations = $resource(self.defaults.url + 'recommendations/:type', {}, {
+          get: setParams('recommendations/:type', options),
+          getDocuments: setParams('recommendations/documents', options),
+          getCategories: setParams('recommendations/categories', options),
+          getSites: setParams('recommendations/sites', options)
+        });
 
-  return Interests;
-})
-/* Sphere Entities
- * Includes custom actions for Documents, Categories, and Sites
- * Can also hit those endpoints by passing in {type: 'documents'}, etc, as a parameter when making a .get() request
- */
-.factory('SphereEntities', function ($resource) {
-  var Entities = $resource('https://sphere-dev.outbrain.com/api/v1/:type/:id', {}, {
-    //Custome actions
-      getSites: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/sites' },
-      getCategories: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/categories'},
-      getDocuments: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/documents'}
-    }
-  );
+        return recommendations;
+      },
+      interests: function (options) {
+        var interests = $resource(self.defaults.url + 'interests/:type/:id', {}, {
+          getAll: setParams('interests', [options, {isArray: true}]),
+          get: setParams('interests/:type', [options, {isArray: true}]),
+          getCategories: setParams('interests/categories', options),
+          getSites: setParams('interests/sites', options),
+          getTopics: setParams('interests/topics', options),
+          getInterest: setParams('interests/:type/:id', options)
+          /*,
+           * haven't yet been able to test the add/remove interests, so they are temporarily disabled
+           * ==================================
+          addInterest: { method: 'POST',
+            transformRequest: function (data) {
+              console.log('Data: ', data);
+            } 
+          },
+          removeInterest: { method: 'DELETE',
+            transformRequest: function (data) {
+              console.log('Data: ', data);
+            } 
+          }*/
+        });
 
-  return Entities;
+        return interests;
+      },
+      entities: function (options) {
+        var entities = $resource(self.defaults.url + ':type/:id', {}, {
+          getSites: setParams('sites/:id', options),
+          getCategories: setParams('categories/:id', options),
+          getDocuments: setParams('documents/:id', options)
+        });
+
+        return entities;
+      }
+    };
+
+    return data;
+  }
 });
