@@ -52,8 +52,12 @@ The $sphereProvider gives you access to a defaults object, which gets passed int
 
 Example:
 ```js
-$httpProvider.defaults.headers.Authorization = 'API_KEY my-api-key';
-$httpProvider.defaults.headers['X-USER-ID'] = 'my-user-id';
+$sphereProvider.defaults.headers.Authorization = 'API_KEY my-api-key';
+$sphereProvider.defaults.headers['X-USER-ID'] = 'my-user-id';
 ```
 
-Additionally, by default, sphere-service will make requests to the development version of the Sphere Api. When you're ready to move to production, you can tell the service to switch by setting `$sphereProvider.prodEnabled(true)`.
+Additionally, by default, sphere-service will make requests to the development version of the Sphere Api. When you're ready to move to production, you can tell the service to switch urls by setting `$sphereProvider.prodEnabled(true)`
+
+### $sphere
+
+The $sphere object allows you to interact with the Sphere Api services by passing it into your applications functions. This is built to extend the ngResource module ([ngResource](https://docs.angularjs.org/api/ngResource/service/$resource)), and so similar syntax is used.
