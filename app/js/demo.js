@@ -3,7 +3,7 @@ angular.module('sphere-demo', [
   'sphere-services'
 ])
 .config(function ($routeProvider, $httpProvider, $sphereProvider) {
-  // You can either set default headers for the httpProvider, or
+  // You can either set default headers for the $httpProvider, or
   // if you want to isolate it to just the Sphere Api calls, you can set default headers to the $sphereProvider
   $httpProvider.defaults.headers.common.Authorization = 'API_KEY c2e75315550543fdbf0a85e9a96a458e';
   $httpProvider.defaults.headers.common['X-USER-ID'] = '9afa6143-4357-4b27-8311-a3d4626259c7';
@@ -16,13 +16,13 @@ angular.module('sphere-demo', [
     templateUrl: 'service-demo.html',
     resolve: {
       Recs: function ($sphere) {
-        return $sphere.recommendations().get({type: 'documents'});
+        return $sphere.recommendations().getDocuments();
       },
       Interests: function ($sphere) {
-        return $sphere.interests().getCategories();
+        return $sphere.interests().getDocuments();
       },
       Entities: function ($sphere) {
-        return $sphere.entities().getSites();
+        return $sphere.entities().getDocuments({id: 'G3MuMmR4YZS-XBVJsTb_yA'});
       }
     }
   })
@@ -35,6 +35,39 @@ angular.module('sphere-demo', [
   $scope.interests = Interests;
   console.log('Entities: ', Entities);
   $scope.entities = Entities;
+
+  $scope.addInterest = function (interest, type, index) {
+    var idArr = $scope.recommendations.items[index].document._actions.setInterest.split('/'),
+      id = idArr[idArr.length - 1];
+
+  // Forming the call
+  $sphere.interests().addInterest({
+    interested: true,
+    type: type,
+    id: id
+  }, function (success) {
+      console.log('Success: ', success);
+    }, function (failure) {
+      console.log('Failure: ', failure);
+    });
+  };
+
+
+  $scope.removeInterest = function (type, item) {
+    console.log('Remove Item: ', item);
+
+    var idArr = item.document._actions.setInterest.split('/'),
+      id = idArr[idArr.length - 1];
+
+    $sphere.interests().removeInterest({
+      type: type,
+      id: id
+    }, function (success) {
+      console.log('Success: ', success);
+    }, function (failure) {
+      console.log('Failure: ', failure);
+    });
+  };
 
   $scope.refreshRecs = function (params) {
     $scope.recommendations = $sphere.recommendations({headers: {Authorization: 'API_KEY c2e75315550543fdbf0a85e9a96a458e'}}).getDocuments();
@@ -49,7 +82,8 @@ angular.module('sphere-demo', [
   };
 
   $scope.refreshEntities = function (params) {
-    $sphere.entities().getSites({limit: 5}).$promise.then(function (success) {
+    $sphere.entities().getSites({limit: 5}).$promise
+    .then(function (success) {
       $scope.entities = success;
     })
     .catch(function (failure) {

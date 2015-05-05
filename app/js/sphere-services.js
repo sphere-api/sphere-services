@@ -1,12 +1,13 @@
 'use strict';
 
-/* Wrapper module
- * To include all services, just include sphere-api as an application dependency
- */
 angular.module('sphere-services', [
   'ngResource'
 ])
 .provider('$sphere', function $sphereProvider () {
+  /*
+   * Private objects and methods
+   * ---------------------------
+   */
   var self = this,
     setParams;
 
@@ -14,20 +15,20 @@ angular.module('sphere-services', [
     var params = angular.copy(self.defaults);
     params.url += urlPartial;
 
-    if (options && angular.isObject(options)) {
-      angular.extend(params, options);
-    } else if (angular.isArray(options)) {
-      angular.forEach(options, function (option) {
-        if (angular.isObject(option)) {
-          angular.extend(params, option);
-        }
-      });
-    }
+    angular.forEach(options, function (option) {
+      if (angular.isObject(option)) {
+        angular.extend(params, option);
+      }
+    });
 
     return params;
   };
 
-  // Setup defaults for the Sphere Api calls
+  /*
+   * Public objects and methods
+   * Available during the config phase through $sphereProvider
+   * --------------------------
+   */
   this.defaults = {
     method: 'GET',
     url: 'https://sphere-dev.outbrain.com/api/v1/',
@@ -44,6 +45,11 @@ angular.module('sphere-services', [
     }
   };
   
+  /*
+   * Public method
+   * Contains methods available through $sphere
+   * ---------------------------------------
+   */
   this.$get = function ($resource) {
     var self = this;
     
@@ -60,31 +66,28 @@ angular.module('sphere-services', [
       },
       interests: function (options) {
         var interests = $resource(self.defaults.url + 'interests/:type/:id', {}, {
-          getAll: setParams('interests', [options, {isArray: true}]),
-          get: setParams('interests/:type', [options, {isArray: true}]),
+          getAll: setParams('interests', [options]),
+          get: setParams('interests/:type/:id', [options]),
           getCategories: setParams('interests/categories', options),
           getSites: setParams('interests/sites', options),
           getTopics: setParams('interests/topics', options),
-          getInterest: setParams('interests/:type/:id', options)
-          /*,
-           * haven't yet been able to test the add/remove interests, so they are temporarily disabled
-           * ==================================
-          addInterest: { method: 'POST',
+          getDocuments: setParams('interests/documents', options),
+          getInterest: setParams('interests/:type/:id', options),
+          addInterest: setParams('interests/:type/:id', [options, {params: {id: '@id', type: '@type'}}, { method: 'POST'}, {
             transformRequest: function (data) {
-              console.log('Data: ', data);
-            } 
-          },
-          removeInterest: { method: 'DELETE',
-            transformRequest: function (data) {
-              console.log('Data: ', data);
-            } 
-          }*/
+              delete data.type;
+              delete data.id;
+              return JSON.stringify(data);
+            }
+          }]),
+          removeInterest: setParams('interests/:type/:id', [options, { method: 'DELETE'}])
         });
 
         return interests;
       },
       entities: function (options) {
         var entities = $resource(self.defaults.url + ':type/:id', {}, {
+          get: setParams(':type/:id', options),
           getSites: setParams('sites/:id', options),
           getCategories: setParams('categories/:id', options),
           getDocuments: setParams('documents/:id', options)

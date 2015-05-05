@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="item in recommendations.items">
-      <td><img ng-src="{{item.thumbnail}}"></td>
+      <td><button ng-click="addInterest(true, 'documents', $index)">Like</button><button ng-click="addInterest(false, 'docuemnts', $index)">Dislike</td>
       <td><a ng-href="{{item.document.url}}">{{item.document.title}}</a></td>
     </tr>
   </tbody>
@@ -22,7 +22,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="item in interests.items">
-      <td><img ng-src="{{item.thumbnail}}"></td>
+      <td><button ng-click="removeInterest('documents', item)">Remove Interest</button></td>
       <td><a ng-href="{{item.document.url}}">{{item.document.title}}</a></td>
     </tr>
   </tbody>
