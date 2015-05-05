@@ -60,7 +60,7 @@ Additionally, by default, sphere-service will make requests to the development v
 
 ### $sphere
 
-The $sphere object allows you to interact with the Sphere Api services by passing it into your applications functions. This is built to extend the ngResource module ([ngResource](https://docs.angularjs.org/api/ngResource/service/$resource)), and so similar syntax is used. For more information on the endpoints available, see Sphere Api documentation at [developers.sphere.com](http://developers.sphere.com/#/docs). The models can be bound directly to your $scope, or you can make use of the built-in success/failure callbacks.
+The $sphere object allows you to interact with the Sphere Api services by passing it into your applications functions. This is built to extend the ngResource module ([ngResource](https://docs.angularjs.org/api/ngResource/service/$resource)), and so similar syntax is used. For more information on the endpoints available, see Sphere Api documentation at [developers.sphere.com](http://developers.sphere.com/#/docs/). The models can be bound directly to your $scope, or you can make use of the built-in success/failure callbacks.
 
 For example, there are three ways you can make a call to the same endpoint;
 ```js
@@ -84,3 +84,51 @@ $sphere.recommendations().get({type: 'documents'}).$promise
   throw failure;
 });
 ```
+
+Additionally, you have the option of two different ways of calling any resource. As shown, you can use the generic get/post/delete requests and pass in an object with the `type` key. Or, you can make a direct request to the resource by calling a custom method:
+```js
+$sphere.recommendations().getDocuments();
+```
+
+# Constructing resource calls
+
+## Setting the initial resource
+
+There are three broad endpoints you can make a call to on the Sphere Api:
+```js
+$sphere.recommendations()
+$sphere.interests()
+$sphere.entities()
+```
+
+When setting up an individual call, you can also pass in optional header parameters into the endpoint by passing an object into the function. Any valid header parameters can be passed in, and it will override any `$httpProvider` or `$sphereProvider` defaults that you set in the config.
+
+```js
+$sphere.recommendations({
+  headers: {
+    Authorization: 'API_KEY my-api-key'
+  },
+  withCredentials: true
+})
+```
+
+## Specifying the Endpoint
+
+Once you've setup your initial request, you can then specify what type you want from that resource, as well as passing in any optional parameters:
+
+```js
+// Passing in the Type declaration
+$sphere.recommendations().get({
+  type: 'documents',
+  limit: 5,
+  contextId: 0
+});
+
+// Using the custom service
+$sphere.recommendations().getDocuments({
+  limit: 5,
+  contextId: 0
+});
+```
+
+See the [Sphere Api Documentation](http://developers.sphere.com/#/docs/) for more details on what optional parameters are available.
