@@ -31,10 +31,6 @@ angular.module('sphere-services', [
   this.defaults = {
     method: 'GET',
     url: 'https://sphere-dev.outbrain.com/api/v1/',
-    headers: {
-      Authorization: '',//API_KEY c2e75315550543fdbf0a85e9a96a458e
-      'X-USER-ID': '',//9afa6143-4357-4b27-8311-a3d4626259c7
-    },
     withCredentials: true
   };
 
