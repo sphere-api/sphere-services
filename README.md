@@ -64,8 +64,10 @@ The $sphere object allows you to interact with the Sphere Api services by passin
 
 For example, there are three ways you can make a call to the same endpoint;
 ```js
+// Binding directing to a scope variable
 $scope.recommendations = $sphere.recommendations().get({type: 'documents'});
 
+// Using success/failure callback functions
 $sphere.recommendations().get({type: 'documents'},
 function (success) {
   $scope.recommendations = success;
@@ -73,6 +75,7 @@ function (success) {
   throw failure;
 });
 
+// Making use of $resource's built-in then/catch/finally
 $sphere.recommendations().get({type: 'documents'}).$promise
 .then(function (success) {
   $scope.recommendations = success;
