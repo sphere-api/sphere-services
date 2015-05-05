@@ -5,9 +5,9 @@
   "appPath": "app",
   "description": "Services for interacting with the Sphere REST endpoints",
   "keywords": [
-    "image",
-    "video",
-    "gallery"
+    "REST",
+    "api",
+    "Sphere"
   ],
   "homepage": "https://github.com/sphere-api/sphere-services.git",
   "author": {
@@ -35,7 +35,7 @@
     "tests"
   ],
   "authors": [
-    "Joshua Martin <YOUR_MAIL@gmail.com>"
+    "Joshua Martin <jmartin@outbrain.com>"
   ],
   "license": "MIT",
   "devDependencies": {

@@ -15,33 +15,13 @@ angular.module('sphere-services', [
   },
   withCredentials: true
 })
-.service('SphereHeaders', function (SphereDefaults) {
-  return {
-    headers: {},
-    setHeaders: function (params) {
-      var self = this;
-
-      self.headers = angular.isObject(params) ? params : {};
-    },
-    extendHeaders: function (params) {
-      var self = this;
-
-      if (angular.isObject(params)) { angular.extend(self.headers, params); }
-    },
-    getHeaders: function () {
-      console.log('headers: ', this.headers);
-      return this.headers;
-    }
-  };
-})
 /* Sphere Recommendations
  * Includes custom actions for Documents, Categories, and Sites
  * Can also hit those endpoints by passing in {type: 'documents'}, etc, as a parameter when making a .get() request
  */
-.factory('SphereRecommendations', function ($resource, SphereDefaults) {
+.factory('SphereRecommendations', function ($resource) {
 
   var Recommendations = $resource('https://sphere-dev.outbrain.com/api/v1/recommendations/:type', {}, {
-      get: SphereDefaults ,
       // Custom actions
       getDocuments: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/recommendations/documents' },
       getCategories: { method: 'GET', url: 'https://sphere-dev.outbrain.com/api/v1/recommendations/categories' },
