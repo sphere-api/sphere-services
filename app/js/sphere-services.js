@@ -19,7 +19,7 @@ angular.module('sphere-services', [
     } else if (angular.isArray(options)) {
       angular.forEach(options, function (option) {
         if (angular.isObject(option)) {
-          angular.extend(params.option);
+          angular.extend(params, option);
         }
       });
     }
