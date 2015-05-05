@@ -30,10 +30,10 @@ angular.module('sphere-demo', [
   console.log('Interests: ', Interests);
   $scope.interests = Interests;
   console.log('Entities: ', Entities);
-  $scope.Entities = Entities;
+  $scope.entities = Entities;
 
   $scope.refreshRecs = function (params) {
-    $scope.recommendations = SphereRecommendations.get(params);
+    $scope.recommendations = $sphere.recommendations().getDocuments();
   };
 
   $scope.refreshInterests = function (params) {
@@ -41,11 +41,11 @@ angular.module('sphere-demo', [
       $scope.interests = success;
     }, function (failure) {
       throw failure;
-    })
+    });
   };
 
   $scope.refreshEntities = function (params) {
-    $sphere.entities().getDocuments().$promise.then(function (success) {
+    $sphere.entities().getSites({limit: 5}).$promise.then(function (success) {
       $scope.entities = success;
     })
     .catch(function (failure) {

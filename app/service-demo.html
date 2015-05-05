@@ -1,1 +1,41 @@
 <h1>Test</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Recommendations <button ng-click="refreshRecs()">Refresh</button></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in recommendations.items">
+      <td><img ng-src="{{item.thumbnail}}"></td>
+      <td><a ng-href="{{item.document.url}}">{{item.document.title}}</a></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Interests <button ng-click="refreshInterests()">Refresh</button></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in interests.items">
+      <td><img ng-src="{{item.thumbnail}}"></td>
+      <td><a ng-href="{{item.document.url}}">{{item.document.title}}</a></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Entities <button ng-click="refreshEntities()">Refresh</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="site in entities.sites">
+      <td><a ng-href="{{site._href}}">{{site.name}}</a></td>
+    </tr>
+  </tbody>
+</table>
