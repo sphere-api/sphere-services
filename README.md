@@ -2,6 +2,11 @@
 
 Provides methods for interacting with the Sphere Api endpoints
 
+Dependencies:
+
+* [AngularJS](https://angularjs.org/)
+* [ngResource](https://docs.angularjs.org/api/ngResource/service/$resource)
+
 ## Running the demo site
 
 To run the demo site on your machine for testing the service calls:
@@ -30,3 +35,5 @@ bower install
 ```
 
 Make sure the `sphere-services.json` file is included in your `index.html`.
+
+## Using sphere-services in your Angular project
