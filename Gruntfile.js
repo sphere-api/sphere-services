@@ -12,8 +12,54 @@ module.exports = function(grunt) {
       app: require('./bower.json').appPath || 'app',
     },
 
+    // Update bower versioning
     update_json: {
+      options: {
+        src: 'package.json',
+        indent: '\t'
+      },
+      package: {
+        dest: 'package.json',
+        fields: {
+          version: function (src) {
+            var newVersion = src.version.split('.'),
+              version = '';
 
+            newVersion[newVersion.length - 1]++;
+
+            for(var i = 0; i < newVersion.length; i++) {
+              version += newVersion[i];
+
+              if (i !== newVersion.length - 1) {
+                version += '.';
+              }
+            }
+            
+            return version;
+          }
+        }
+      },
+      bower: {
+        dest: 'bower.json',
+        fields: 'version'
+      },
+      component: {
+        src: 'bower.json',
+        dest: 'component.json',
+        fields: {
+          version: null,
+          dependencies: null
+        },
+      }
+    },
+
+    // Uglify the javascript file into a dist folder for distribution
+    uglify: {
+      services: {
+        files: {
+          'dist/sphere-services.min.js': ['app/js/sphere-services.js']
+        }
+      }
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -92,12 +138,10 @@ module.exports = function(grunt) {
     }
   });
   // Load tasks
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-bower-install');
-  grunt.loadNpmTasks('grunt-express');
-  grunt.loadNpmTasks('grunt-shell');
+  require('load-grunt-tasks')(grunt);
 
   // Register new tasks
   grunt.registerTask('serve', ['bowerInstall', 'connect', 'watch']);
-  grunt.registerTask('publish', ['shell:bowerRegister']);
+  grunt.registerTask('publish', ['update_json', 'uglify', 'shell:bowerRegister']);
+  grunt.registerTask('build', ['update_json', 'uglify']);
 }
