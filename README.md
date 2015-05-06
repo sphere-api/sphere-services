@@ -34,7 +34,7 @@ In your bower.json file:
 bower install
 ```
 
-Make sure the `sphere-services.json` file is included in your `index.html`, then include the dependency in your Angular application:
+Make sure the `sphere-services.js` file is included in your `index.html`, then include the dependency in your Angular application:
 
 ```js
 angular.module('myApp', [
