@@ -38,7 +38,7 @@ angular.module('sphere-services', [
   this.prodEnabled = function (bool) {
     if (typeof(bool) === 'boolean') {
       if (bool) {
-        self.defaults.url = 'https://sphere.outbrain.com/api/v1/'
+        self.defaults.url = 'https://sphere.outbrain.com/api/v1/';
       }
     } else {
       throw 'Error: prodEnabled only accepts boolean values';
@@ -58,8 +58,8 @@ angular.module('sphere-services', [
         var recommendations = $resource(self.defaults.url + 'recommendations/:type', {}, {
           get: setParams('recommendations/:type', options),
           getDocuments: setParams('recommendations/documents', options),
-          getCategories: setParams('recommendations/categories', options),
-          getSites: setParams('recommendations/sites', options)
+          getCategories: setParams('recommendations/categories', [options, {isArray: true}]),
+          getSites: setParams('recommendations/sites', [options, {isArray: true}])
         });
 
         return recommendations;
@@ -89,7 +89,7 @@ angular.module('sphere-services', [
         var entities = $resource(self.defaults.url + ':type/:id', {}, {
           get: setParams(':type/:id', options),
           getSites: setParams('sites/:id', options),
-          getCategories: setParams('categories/:id', options),
+          getCategories: setParams('categories/:id', [options, {isArray: true}]),
           getDocuments: setParams('documents/:id', options)
         });
 
