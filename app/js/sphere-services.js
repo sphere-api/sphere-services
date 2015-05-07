@@ -67,8 +67,8 @@ angular.module('sphere-services', [
       },
       interests: function (options) {
         var interests = $resource(self.defaults.url + 'interests/:type/:id', {}, {
-          getAll: setParams('interests', [options]),
-          get: setParams('interests/:type/:id', [options]),
+          getAll: setParams('interests', options),
+          get: setParams('interests/:type/:id', options),
           getCategories: setParams('interests/categories', options),
           getSites: setParams('interests/sites', options),
           getTopics: setParams('interests/topics', options),
