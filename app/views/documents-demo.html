@@ -1,0 +1,41 @@
+<h1>Documents Example</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Recommendations <button ng-click="refreshRecs('documents')">Refresh</button></th>
+      <th><button ng-repeat="(key, action) in recommendations._actions" ng-click="commitAction(action, key)">{{key}}</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in recommendations.items">
+      <td><button ng-if="item._actions" ng-repeat="(key, action) in item._actions">{{key}}</button></td>
+      <td><a ng-href="{{item.document.url}}">{{item.document.title}}</a> <button ng-repeat="(key, action) in item.document._actions" ng-click="commitAction(action, key)">{{key}}</button></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Interests <button ng-click="refreshInterests('documents')">Refresh</button></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in interests.items">
+      <td><button ng-click="removeInterest('documents', item)">Remove Interest</button></td>
+      <td><a ng-href="{{item.document.url}}">{{item.document.title}}</a></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Entities <button ng-click="refreshEntities('documents')">Refresh</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="site in entities.sites | orderBy:'name':false">
+      <td><a ng-href="{{site._href}}">{{site.name}}</a></td>
+    </tr>
+  </tbody>
+</table>

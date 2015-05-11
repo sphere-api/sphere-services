@@ -1,0 +1,50 @@
+<h1>Categories Example</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Recommendations <button ng-click="refreshRecs('categories')">Refresh</button></th>
+      <th>
+        <button ng-repeat="(key, action) in recommendations._actions" ng-click="commitAction(action, key, true)">
+          {{key}}
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in recommendations">
+      <td><button ng-if="item._actions" ng-repeat="(key, action) in item._actions" ng-click="commitAction(action, key)">{{key}}</button></td>
+      <td><a ng-href="{{item._href}}">{{item.name}}</a></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Interests <button ng-click="refreshInterests('categories')">Refresh</button></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in interests.items">
+      <td><button ng-click="removeInterest('documents', item)">Remove Interest</button></td>
+      <td><a ng-href="{{item.document.url}}">{{item.category.name}}</a></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Entities <button ng-click="refreshEntities('categories')">Refresh</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in entities">
+      <td>
+        <button ng-repeat="(key, action) in item._actions" ng-click="commitAction(action, key)">
+          {{key}}
+        </button>
+      </td>
+      <td><a ng-href="{{item._href}}">{{item.name}}</a></td>
+    </tr>
+  </tbody>
+</table>
