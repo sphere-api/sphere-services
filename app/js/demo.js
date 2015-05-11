@@ -1,6 +1,5 @@
 angular.module('sphere-demo', [
   'ngRoute',
-  'hateoas',
   'sphere-services'
 ])
 .config(function ($routeProvider, $httpProvider, $sphereProvider) {
