@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       options: {
         tagName: 'v<%= version %>',
         tag: false,
-        push: false,
+        push: true,
         pushTags: false,
         npm: false,
         npmtag: false,
@@ -114,5 +114,7 @@ module.exports = function(grunt) {
   // Register new tasks
   grunt.registerTask('serve', ['bowerInstall', 'connect', 'watch']);
   grunt.registerTask('publish', ['update_json', 'uglify', 'shell:bowerRegister']);
-  grunt.registerTask('build', ['uglify','release']);
+  grunt.registerTask('build:patch', ['uglify','release:patch']);
+  grunt.registerTask('build:minor', ['uglify','release:minor']);
+  grunt.registerTask('build:major', ['uglify','release:major']);
 }
