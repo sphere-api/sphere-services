@@ -15,9 +15,9 @@ module.exports = function(grunt) {
     release: {
       options: {
         tagName: 'v<%= version %>',
-        tag: false,
+        tag: true,
         push: true,
-        pushTags: false,
+        pushTags: true,
         npm: false,
         npmtag: false,
         additionalFiles: ['bower.json', 'component.json']
