@@ -1,6 +1,6 @@
 {
 	"name": "sphere-services",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"title": "Sphere Services",
 	"appPath": "app",
 	"description": "Services for interacting with the Sphere REST endpoints",
@@ -19,8 +19,8 @@
 	},
 	"bugs": "https://github.com/sphere-api/sphere-services.git/issues",
 	"dependencies": {
-		"angular": "1.2.6",
-		"angular-resource": "1.2.6"
+		"angular": ">=1.2.6",
+		"angular-resource": ">=1.2.6"
 	},
 	"main": [
 		"app/js/sphere-services"
