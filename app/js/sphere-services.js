@@ -86,7 +86,8 @@ angular.module('sphere-services', [
           query: setParams('recommendations/:type', [options, {method: 'GET', isArray: true}]),
           getDocuments: setParams('recommendations/documents', options),
           getCategories: setParams('recommendations/categories', [options, {isArray: true}]),
-          getSites: setParams('recommendations/sites', [options, {isArray: true}])
+          getSites: setParams('recommendations/sites', [options, {isArray: true}]),
+          getOnBoard: setParams('recommendations/onboard', options)
         });
 
         return recommendations;

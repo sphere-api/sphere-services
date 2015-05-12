@@ -1,44 +1,44 @@
 {
-	"name": "sphere-services",
-	"version": "0.0.6",
-	"title": "Sphere Services",
-	"appPath": "app",
-	"description": "Services for interacting with the Sphere REST endpoints",
-	"keywords": [
-		"REST",
-		"api",
-		"Sphere"
-	],
-	"homepage": "https://github.com/sphere-api/sphere-services.git",
-	"author": {
-		"name": "Joshua Martin"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/sphere-api/sphere-services.git.git"
-	},
-	"bugs": "https://github.com/sphere-api/sphere-services.git/issues",
-	"dependencies": {
-		"angular": "~1.3.15",
-		"angular-resource": "~1.3.15"
-	},
-	"main": [
-		"app/js/sphere-services"
-	],
-	"ignore": [
-		"/*.*",
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"app/bower_components",
-		"test",
-		"tests"
-	],
-	"authors": [
-		"Joshua Martin <jmartin@outbrain.com>"
-	],
-	"license": "MIT",
-	"devDependencies": {
-		"angular-route": "~1.3.15"
-	}
+  "name": "sphere-services",
+  "version": "0.1.0",
+  "title": "Sphere Services",
+  "appPath": "app",
+  "description": "Services for interacting with the Sphere REST endpoints",
+  "keywords": [
+    "REST",
+    "api",
+    "Sphere"
+  ],
+  "homepage": "https://github.com/sphere-api/sphere-services.git",
+  "author": {
+    "name": "Joshua Martin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sphere-api/sphere-services.git.git"
+  },
+  "bugs": "https://github.com/sphere-api/sphere-services.git/issues",
+  "dependencies": {
+    "angular": ">=1.2.6",
+    "angular-resource": ">=1.2.6"
+  },
+  "main": [
+    "app/js/sphere-services"
+  ],
+  "ignore": [
+    "/*.*",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "authors": [
+    "Joshua Martin <jmartin@outbrain.com>"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "angular-route": "1.2.6"
+  }
 }
