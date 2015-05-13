@@ -69,13 +69,13 @@ angular.module('sphere-services', [
       },
       interests: function (options) {
         var interests = $resource(self.defaults.url + 'interests/:type/:id', {}, {
-          getAll: setParams('interests', options),
-          get: setParams('interests/:type/:id', options),
-          getCategories: setParams('interests/categories', options),
-          getSites: setParams('interests/sites', options),
-          getTopics: setParams('interests/topics', options),
-          getDocuments: setParams('interests/documents', options),
-          getInterest: setParams('interests/:type/:id', options),
+          getAll: setParams('interests', [options]),
+          get: setParams('interests/:type/:id', [options]),
+          getCategories: setParams('interests/categories', [options]),
+          getSites: setParams('interests/sites', [options]),
+          getTopics: setParams('interests/topics', [options]),
+          getDocuments: setParams('interests/documents', [options]),
+          getInterest: setParams('interests/:type/:id', [options]),
           addInterest: setParams('interests/:type/:id', [options, {params: {id: '@id', type: '@type'}}, { method: 'POST'}, {
             transformRequest: function (data) {
               delete data.type;
@@ -90,10 +90,10 @@ angular.module('sphere-services', [
       },
       entities: function (options) {
         var entities = $resource(self.defaults.url + ':type/:id', {}, {
-          get: setParams(':type/:id', options),
-          getSites: setParams('sites/:id', options),
+          get: setParams(':type/:id', [options]),
+          getSites: setParams('sites/:id', [options]),
           getCategories: setParams('categories/:id', [options, {isArray: true}]),
-          getDocuments: setParams('documents/:id', options)
+          getDocuments: setParams('documents/:id', [options])
         });
 
         return entities;
