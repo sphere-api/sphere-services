@@ -1,11 +1,11 @@
 {
-	"name": "sphere-services",
-	"version": "0.0.7",
-	"main": [
-		"app/js/sphere-services"
-	],
-	"dependencies": {
-		"angular": "1.2.6",
-		"angular-resource": "1.2.6"
-	}
+  "name": "sphere-services",
+  "version": "0.1.1",
+  "main": [
+    "app/js/sphere-services"
+  ],
+  "dependencies": {
+    "angular": ">=1.2.6",
+    "angular-resource": ">=1.2.6"
+  }
 }

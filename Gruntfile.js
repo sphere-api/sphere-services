@@ -12,44 +12,15 @@ module.exports = function(grunt) {
       app: require('./bower.json').appPath || 'app',
     },
 
-    // Update bower versioning
-    update_json: {
+    release: {
       options: {
-        src: 'package.json',
-        indent: '\t'
-      },
-      package: {
-        dest: 'package.json',
-        fields: {
-          version: function (src) {
-            var newVersion = src.version.split('.'),
-              version = '';
-
-            newVersion[newVersion.length - 1]++;
-
-            for(var i = 0; i < newVersion.length; i++) {
-              version += newVersion[i];
-
-              if (i !== newVersion.length - 1) {
-                version += '.';
-              }
-            }
-            
-            return version;
-          }
-        }
-      },
-      bower: {
-        dest: 'bower.json',
-        fields: 'version'
-      },
-      component: {
-        src: 'bower.json',
-        dest: 'component.json',
-        fields: {
-          version: null,
-          dependencies: null
-        },
+        tagName: 'v<%= version %>',
+        tag: true,
+        push: true,
+        pushTags: true,
+        npm: false,
+        npmtag: false,
+        additionalFiles: ['bower.json', 'component.json']
       }
     },
 
@@ -143,5 +114,7 @@ module.exports = function(grunt) {
   // Register new tasks
   grunt.registerTask('serve', ['bowerInstall', 'connect', 'watch']);
   grunt.registerTask('publish', ['update_json', 'uglify', 'shell:bowerRegister']);
-  grunt.registerTask('build', ['update_json', 'uglify']);
+  grunt.registerTask('build:patch', ['uglify','release:patch']);
+  grunt.registerTask('build:minor', ['uglify','release:minor']);
+  grunt.registerTask('build:major', ['uglify','release:major']);
 }

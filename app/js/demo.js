@@ -5,10 +5,10 @@ angular.module('sphere-demo', [
 .config(function ($routeProvider, $httpProvider, $sphereProvider) {
   // You can either set default headers for the $httpProvider, or
   // if you want to isolate it to just the Sphere Api calls, you can set default headers to the $sphereProvider
-  $httpProvider.defaults.headers.common.Authorization = 'API_KEY c2e75315550543fdbf0a85e9a96a458e';
-  $httpProvider.defaults.headers.common['X-USER-ID'] = '9afa6143-4357-4b27-8311-a3d4626259c7';
-  //$sphereProvider.defaults.headers.Authorization = 'API_KEY c2e75315550543fdbf0a85e9a96a458e';
-  //$sphereProvider.defaults.headers['X-USER-ID'] = '9afa6143-4357-4b27-8311-a3d4626259c7';
+  //$httpProvider.defaults.headers.common.Authorization = 'API_KEY c2e75315550543fdbf0a85e9a96a458e';
+  //$httpProvider.defaults.headers.common['X-USER-ID'] = '9afa6143-4357-4b27-8311-a3d4626259c7';
+  $sphereProvider.defaults.headers.Authorization = 'API_KEY c2e75315550543fdbf0a85e9a96a458e';
+  $sphereProvider.defaults.headers['X-USER-ID'] = '9afa6143-4357-4b27-8311-a3d4626259c7';
   //$sphereProvider.prodEnabled(true);// Set to true to make api calls to the production version
 
   $routeProvider.when('/', {

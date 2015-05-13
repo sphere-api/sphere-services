@@ -33,6 +33,7 @@ angular.module('sphere-services', [
   this.defaults = {
     method: 'GET',
     url: 'https://sphere-dev.outbrain.com/api/v1/',
+    headers: {},
     withCredentials: true
   };
 
