@@ -15,11 +15,14 @@ module.exports = function(grunt) {
     release: {
       options: {
         tagName: 'v<%= version %>',
-        tag: true,
+        tag: false,
         push: true,
-        pushTags: true,
+        pushTags: false,
         npm: false,
         npmtag: false,
+        beforeRelease: [
+          'uglify'
+        ],
         additionalFiles: ['bower.json', 'component.json']
       }
     },
@@ -114,7 +117,7 @@ module.exports = function(grunt) {
   // Register new tasks
   grunt.registerTask('serve', ['bowerInstall', 'connect', 'watch']);
   grunt.registerTask('publish', ['update_json', 'uglify', 'shell:bowerRegister']);
-  grunt.registerTask('build:patch', ['uglify','release:patch']);
-  grunt.registerTask('build:minor', ['uglify','release:minor']);
-  grunt.registerTask('build:major', ['uglify','release:major']);
+  grunt.registerTask('build:patch', ['release:patch']);
+  grunt.registerTask('build:minor', ['release:minor']);
+  grunt.registerTask('build:major', ['release:major']);
 }
