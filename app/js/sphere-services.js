@@ -59,6 +59,7 @@ angular.module('sphere-services', [
       recommendations: function (options) {
         var recommendations = $resource(self.defaults.url + 'recommendations/:type', {}, {
           get: setParams('recommendations/:type', [options]),
+          query: setParams('recommendations/:type', [options, {isArray: true}]),
           getDocuments: setParams('recommendations/documents', [options]),
           getCategories: setParams('recommendations/categories', [options, {isArray: true}]),
           getSites: setParams('recommendations/sites', [options, {isArray: true}]),
@@ -71,6 +72,7 @@ angular.module('sphere-services', [
         var interests = $resource(self.defaults.url + 'interests/:type/:id', {}, {
           getAll: setParams('interests', [options]),
           get: setParams('interests/:type/:id', [options]),
+          query: setParams('interests/:type/:id', [options, {isArray: true}]),
           getCategories: setParams('interests/categories', [options]),
           getSites: setParams('interests/sites', [options]),
           getTopics: setParams('interests/topics', [options]),
@@ -91,6 +93,7 @@ angular.module('sphere-services', [
       entities: function (options) {
         var entities = $resource(self.defaults.url + ':type/:id', {}, {
           get: setParams(':type/:id', [options]),
+          query: setParams(':type/:id', [options, {isArray: true}]),
           getSites: setParams('sites/:id', [options]),
           getCategories: setParams('categories/:id', [options, {isArray: true}]),
           getDocuments: setParams('documents/:id', [options])
