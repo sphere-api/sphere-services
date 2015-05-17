@@ -39,6 +39,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "angular-route": "1.2.6"
+    "angular-route": ">=1.2.6"
   }
 }

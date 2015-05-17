@@ -1,6 +1,8 @@
 {
   "version": "0.1.5",
-  "dependencies": {},
+  "dependencies": {
+    "grunt-git": "^0.3.4"
+  },
   "repository": "https://github.com/yuvalsaraf/generator-bower-package.git",
   "description": "A project for building your own bower component and share it later",
   "devDependencies": {
