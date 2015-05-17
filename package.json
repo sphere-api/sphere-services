@@ -1,5 +1,5 @@
 {
-  "version": "0.1.5",
+  "version": "0.1.6-0",
   "dependencies": {
     "grunt-git": "^0.3.4"
   },
