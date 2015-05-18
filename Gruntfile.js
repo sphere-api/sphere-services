@@ -12,6 +12,17 @@ module.exports = function(grunt) {
       app: require('./bower.json').appPath || 'app',
     },
 
+    gitcommit: {
+      'default': {
+        options: {
+          allowEmpty: true
+        },
+        files: {
+          src: ['dist/sphere-services.min.js']
+        }
+      }
+    },
+
     release: {
       options: {
         tagName: 'v<%= version %>',
@@ -20,6 +31,10 @@ module.exports = function(grunt) {
         pushTags: false,
         npm: false,
         npmtag: false,
+        beforeBump: [
+          'uglify',
+          'gitcommit'
+        ],
         additionalFiles: ['bower.json', 'component.json']
       }
     },
@@ -30,20 +45,6 @@ module.exports = function(grunt) {
         files: {
           'dist/sphere-services.min.js': ['app/js/sphere-services.js']
         }
-      }
-    },
-
-    // explicitly commit the minified file
-    gitcommit: {
-      task: {
-        options: {
-          message: 'updating minified file'
-        },
-        files: [
-          {
-            src: ['dist/sphere-services.min.js']
-          }
-        ]
       }
     },
 
@@ -128,7 +129,7 @@ module.exports = function(grunt) {
   // Register new tasks
   grunt.registerTask('serve', ['bowerInstall', 'connect', 'watch']);
   grunt.registerTask('publish', ['update_json', 'uglify', 'shell:bowerRegister']);
-  grunt.registerTask('build:prerelease', ['uglify', 'gitcommit', 'release:prerelease']);
+  grunt.registerTask('build:prerelease', ['release:prerelease']);
   grunt.registerTask('build:patch', ['release:patch']);
   grunt.registerTask('build:minor', ['release:minor']);
   grunt.registerTask('build:major', ['release:major']);
