@@ -1,6 +1,6 @@
 {
   "name": "sphere-services",
-  "version": "0.1.6-9",
+  "version": "0.1.6-10",
   "main": [
     "app/js/sphere-services"
   ],
