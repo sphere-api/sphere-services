@@ -1,6 +1,6 @@
 {
   "name": "sphere-services",
-  "version": "0.1.6-5",
+  "version": "0.1.6-6",
   "title": "Sphere Services",
   "appPath": "app",
   "description": "Services for interacting with the Sphere REST endpoints",

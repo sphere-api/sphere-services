@@ -1,5 +1,5 @@
 {
-  "version": "0.1.6-5",
+  "version": "0.1.6-6",
   "dependencies": {},
   "repository": "https://github.com/yuvalsaraf/generator-bower-package.git",
   "description": "A project for building your own bower component and share it later",
