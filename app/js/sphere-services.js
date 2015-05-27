@@ -100,7 +100,17 @@ angular.module('sphere-services', [
         });
 
         return entities;
+      },
+      stash: function (options) {
+        var stash = $resource(self.defaults.url + 'stash/documents/:id', {}, {
+          get: setParams('stash/documents', [options]),
+          save: setParams('stash/documents/:id', [options, {method: 'POST'}]),
+          remove: setParams('stash/documents/:id', [options, {method: 'DELETE'}])
+        });
+
+        return stash;
       }
+
     };
 
     return data;
