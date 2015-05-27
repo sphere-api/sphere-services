@@ -104,7 +104,12 @@ angular.module('sphere-services', [
       stash: function (options) {
         var stash = $resource(self.defaults.url + 'stash/documents/:id', {}, {
           get: setParams('stash/documents', [options]),
-          save: setParams('stash/documents/:id', [options, {method: 'POST'}]),
+          save: setParams('stash/documents/:id', [options, {params: {click: '@click'}}, {method: 'POST'}, {
+            transformRequest: function (data) {
+              delete data.click;
+              return JSON.stringify(data);
+            }
+          }]),
           remove: setParams('stash/documents/:id', [options, {method: 'DELETE'}])
         });
 
