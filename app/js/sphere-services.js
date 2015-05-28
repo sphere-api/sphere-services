@@ -93,7 +93,7 @@ angular.module('sphere-services', [
               return JSON.stringify(data);
             }
           }]),
-          removeCategorizedSites: setParams('interests/:categoryId/:siteId', [options, {method: 'DELETE'}])
+          removeCategorizedSites: setParams('interests/categorizedSites/:categoryId/:siteId', [options, {method: 'DELETE'}])
         });
 
         return interests;
