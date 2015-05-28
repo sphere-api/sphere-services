@@ -78,14 +78,22 @@ angular.module('sphere-services', [
           getTopics: setParams('interests/topics', [options]),
           getDocuments: setParams('interests/documents', [options]),
           getInterest: setParams('interests/:type/:id', [options]),
-          addInterest: setParams('interests/:type/:id', [options, {params: {id: '@id', type: '@type'}}, { method: 'POST'}, {
+          addInterest: setParams('interests/:type/:id', [options, {params: {id: '@id', type: '@type'}}, {method: 'POST'}, {
             transformRequest: function (data) {
               delete data.type;
               delete data.id;
               return JSON.stringify(data);
             }
           }]),
-          removeInterest: setParams('interests/:type/:id', [options, { method: 'DELETE'}])
+          removeInterest: setParams('interests/:type/:id', [options, {method: 'DELETE'}]),
+          addCategorizedSites: setParams('interests/categorizedSites/:categoryId/:siteId', [options, {params: {categoryId: '@categoryId', siteId: '@siteId'}}, {method: 'POST'}, {
+            transformRequest: function (data) {
+              delete data.categoryId;
+              delete data.siteId;
+              return JSON.stringify(data);
+            }
+          }]),
+          removeCategorizedSites: setParams('interests/:categoryId/:siteId', [options, {method: 'DELETE'}])
         });
 
         return interests;
