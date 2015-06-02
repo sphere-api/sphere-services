@@ -55,7 +55,7 @@ angular.module('sphere-services', [
   this.$get = function ($resource) {
     var self = this;
     
-    var data = {,
+    var data = {
       defaults: self.defaults,
       recommendations: function (options) {
         var recommendations = $resource(self.defaults.url + 'recommendations/:type', {}, {
